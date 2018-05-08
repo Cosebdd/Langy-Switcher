@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Langy.Core;
 using Langy.Core.Config;
@@ -23,7 +24,10 @@ namespace Langy.UI
 
         private static ICommand SetProfileCommand(LanguageProfile languageProfile)
         {
-            return new ContextMenuCommand(() => { LanguageProfileSetter.SetProfile(languageProfile); }
+            return new ContextMenuCommand(() =>
+                {
+                    new Task(() => { LanguageProfileSetter.SetProfile(languageProfile); }).Start();
+                }
             );
         }
 
