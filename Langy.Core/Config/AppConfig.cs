@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Langy.Core.Model;
 using Newtonsoft.Json;
 
@@ -10,7 +11,7 @@ namespace Langy.Core.Config
     {
         private const string ConfigPath = @".\config.json";
 
-        public IReadOnlyDictionary<string, LanguageProfile> LanguageProfiles => InternalAppConfig.LanguageProfiles;
+        public IReadOnlyList<LanguageProfile> LanguageProfiles => InternalAppConfig.LanguageProfiles;
 
         public static AppConfig CurrentConfig { get; } = new AppConfig();
 
@@ -40,15 +41,16 @@ namespace Langy.Core.Config
 
         public void AddProfile(LanguageProfile profile)
         {
-            if (InternalAppConfig.LanguageProfiles.ContainsKey(profile.Name))
+            if (InternalAppConfig.LanguageProfiles.Any(p => p.Name == profile.Name))
                 throw new Exception("Profile with given name already exists");
-            InternalAppConfig.LanguageProfiles.Add(profile.Name, profile);
+            InternalAppConfig.LanguageProfiles.Add(profile);
             SaveConfig();
         }
 
         public void RemoveProfile(string profileName)
         {
-            InternalAppConfig.LanguageProfiles.Remove(profileName);
+            var profile = InternalAppConfig.LanguageProfiles.Single(p => p.Name == profileName);
+            InternalAppConfig.LanguageProfiles.Remove(profile);
             SaveConfig();
         }
 
@@ -56,6 +58,13 @@ namespace Langy.Core.Config
         {
             var jsonConfig = JsonConvert.SerializeObject(InternalAppConfig);
             File.WriteAllText(ConfigPath, jsonConfig);
+        }
+
+        public void RenameProfile(string oldName, string newName)
+        {
+            var profile = InternalAppConfig.LanguageProfiles.Single(p => p.Name == oldName);
+            profile.Name = newName;
+            SaveConfig();
         }
     }
 

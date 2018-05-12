@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2010
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langy.Core", "Langy.Core\Langy.Core.csproj", "{8CE3A5B9-3976-45BA-B52F-0BB75603F389}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langy.Test", "Langy.Test\Langy.Test.csproj", "{E5EB4366-697E-4826-816B-13F763D3CCC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Langy.UI", "Langy.UI\Langy.UI.csproj", "{AAE11A4B-C547-4A1D-B6D6-48B2C9B0FACC}"
 EndProject
@@ -19,10 +17,6 @@ Global
 		{8CE3A5B9-3976-45BA-B52F-0BB75603F389}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CE3A5B9-3976-45BA-B52F-0BB75603F389}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CE3A5B9-3976-45BA-B52F-0BB75603F389}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E5EB4366-697E-4826-816B-13F763D3CCC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E5EB4366-697E-4826-816B-13F763D3CCC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E5EB4366-697E-4826-816B-13F763D3CCC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E5EB4366-697E-4826-816B-13F763D3CCC7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AAE11A4B-C547-4A1D-B6D6-48B2C9B0FACC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AAE11A4B-C547-4A1D-B6D6-48B2C9B0FACC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AAE11A4B-C547-4A1D-B6D6-48B2C9B0FACC}.Release|Any CPU.ActiveCfg = Release|Any CPU
