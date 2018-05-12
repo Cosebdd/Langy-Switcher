@@ -25,7 +25,7 @@
                 <ContextMenu.ItemsSource>
                     <CompositeCollection>
                         <CollectionContainer Collection="{Binding Source={StaticResource ProfileItems}}" />
-                        <MenuItem Header="Create profile from current settings" Command="{Binding NewProfileCommand}"/>
+                        <MenuItem Header="Options..." Command="{Binding OptionsCommand}"/>
                     </CompositeCollection>
                 </ContextMenu.ItemsSource>
                 <ContextMenu.ItemContainerStyle>
