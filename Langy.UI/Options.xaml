@@ -8,6 +8,9 @@
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         Title="Options" Height="300" Width="400">
+    <Window.Resources>
+        <local:LanguageProfileTitleConverter x:Key="ValueConverter" />
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
@@ -16,7 +19,7 @@
         <ListView Grid.Column="0" Margin="5" ItemsSource="{Binding ProfileItems}" SelectedItem="{Binding SelectedItem}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}"></TextBlock>
+                    <TextBlock Text="{Binding Path=Name, Converter={StaticResource ValueConverter}}"></TextBlock>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
@@ -27,3 +30,4 @@
         </StackPanel>
     </Grid>
 </Window>
+

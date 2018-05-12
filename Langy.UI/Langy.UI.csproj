@@ -68,6 +68,7 @@
     <Compile Include="BasicCommand.cs" />
     <Compile Include="ContextMenuItem.cs" />
     <Compile Include="LanguageProfileItemsManager.cs" />
+    <Compile Include="LanguageProfileTitleConverter.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -82,15 +83,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OptionsViewModel.cs" />
+    <Compile Include="ViewModel\OptionsViewModel.cs" />
     <Compile Include="ProfileNameDialog.xaml.cs">
       <DependentUpon>ProfileNameDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ProfileNameDialogViewModel.cs" />
+    <Compile Include="ViewModel\ProfileNameDialogViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
