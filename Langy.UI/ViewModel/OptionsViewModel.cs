@@ -1,14 +1,18 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Langy.Core;
 using Langy.Core.Config;
+using Langy.UI.Annotations;
 
 namespace Langy.UI
 {
-    internal class OptionsViewModel
+    internal class OptionsViewModel : INotifyPropertyChanged
     {
         private readonly Options _optionsDialog;
         private readonly LanguageProfileItemsManager _itemsManager;
+        private ContextMenuItem _selectedItem;
 
         public OptionsViewModel(LanguageProfileItemsManager itemsManager, Options optionsDialog)
         {
@@ -20,17 +24,27 @@ namespace Langy.UI
             RemoveProfileCommand = RemoveProfile();
         }
 
-        public ContextMenuItem SelectedItem { get; set; }
+        public ContextMenuItem SelectedItem
+        {
+            get => _selectedItem;
+            set
+            {
+                _selectedItem = value;
+                RenameProfileCommand.RaiseCanExecuteChanged();
+                RemoveProfileCommand.RaiseCanExecuteChanged();
+                OnPropertyChanged();
+            }
+        }
 
         public ObservableCollection<ContextMenuItem> ProfileItems => _itemsManager.ProfileItems;
 
         public ICommand CreateNewProfileCommand { get; }
 
-        public ICommand RenameProfileCommand { get; }
+        public BasicCommand RenameProfileCommand { get; }
 
-        public ICommand RemoveProfileCommand { get; }
+        public BasicCommand RemoveProfileCommand { get; }
 
-        private ICommand CreateNewProfile()
+        private BasicCommand CreateNewProfile()
         {
             return new BasicCommand(() =>
             {
@@ -42,16 +56,18 @@ namespace Langy.UI
             });
         }
 
-        private ICommand RemoveProfile()
+        private BasicCommand RemoveProfile()
         {
             return new BasicCommand(() =>
             {
                 AppConfig.CurrentConfig.RemoveProfile(SelectedItem.Name);
                 _itemsManager.ProfileItems.Remove(SelectedItem);
-            });
+            }, 
+            () => SelectedItem != null
+            );
         }
 
-        private ICommand RenameProfile()
+        private BasicCommand RenameProfile()
         {
             return new BasicCommand(() =>
             {
@@ -59,12 +75,13 @@ namespace Langy.UI
 
                 AppConfig.CurrentConfig.RenameProfile(SelectedItem.Name, profileName);
                 SelectedItem.Name = profileName;
-            });
+            },
+            () => SelectedItem != null);
         }
 
         private bool TryGetProfileNameFromDialog(string defaultText, string dialogTitle, out string profileName)
         {
-            var viewModel = new ProfileNameDialogViewModel() { ProfileName = defaultText,  };
+            var viewModel = new ProfileNameDialogViewModel(ProfileItems) { ProfileName = defaultText,  };
             var dialog = new ProfileNameDialog
             {
                 DataContext = viewModel,
@@ -74,6 +91,14 @@ namespace Langy.UI
             var result = dialog.ShowDialog();
             profileName = viewModel.ProfileName;
             return result ?? false;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

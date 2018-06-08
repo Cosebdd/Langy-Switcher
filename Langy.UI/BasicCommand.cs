@@ -6,15 +6,22 @@ namespace Langy.UI
     public class BasicCommand : ICommand
     {
         private readonly Action _action;
+        private readonly Func<bool> _canExecute;
 
-        public BasicCommand(Action action)
+        public BasicCommand(Action action, Func<bool> canExecute = null)
         {
             _action = action;
+            _canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter)
         {
-            return true;
+            return _canExecute == null || _canExecute();
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, new EventArgs());
         }
 
         public void Execute(object parameter)
