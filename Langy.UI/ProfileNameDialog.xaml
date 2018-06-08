@@ -11,9 +11,9 @@
         Title="ProfileNameDialog" Height="100" Width="300">
     <Grid>
         <StackPanel Orientation="Vertical">
-            <TextBox Margin="5" Text="{Binding ProfileName}"></TextBox>
+            <TextBox Margin="5" Text="{Binding Path=ProfileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Button Margin="5" Width="70" IsDefault="True" Click="OkButtonClick">Ok</Button>
+                <Button Margin="5" Width="70" IsDefault="True" Click="OkButtonClick" IsEnabled="{Binding NameIsValid}">Ok</Button>
                 <Button Margin="5" Width="70" IsCancel="True">Cancel</Button>
             </StackPanel>
         </StackPanel>
