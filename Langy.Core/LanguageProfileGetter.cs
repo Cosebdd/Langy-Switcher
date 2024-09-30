@@ -30,7 +30,6 @@ namespace Langy.Core
                 {
                     languageTags.Add(mem.LanguageTag);
                 }
-
             }
 
             var languageProfile = new LanguageProfile() { LanguageTags = languageTags, Name = name };
