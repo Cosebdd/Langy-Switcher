@@ -10,7 +10,7 @@
     Visibility="Hidden">
 
     <Window.Resources>
-        <CollectionViewSource x:Key="ProfileItems" Source="{Binding ProfileItems}"/>
+        <CollectionViewSource x:Key="ProfileItems" Source="{Binding ProfileItems}" />
     </Window.Resources>
 
     <tb:TaskbarIcon x:Name="myNotifyIcon"
@@ -18,33 +18,29 @@
                     ToolTipText="Langy"
                     IconSource="Logo.ico"
                     MenuActivation="LeftOrRightClick"
-                    PopupActivation="DoubleClick"
-    >
+                    PopupActivation="DoubleClick">
         <tb:TaskbarIcon.ContextMenu>
             <ContextMenu Background="White">
                 <ContextMenu.ItemsSource>
                     <CompositeCollection>
                         <CollectionContainer Collection="{Binding Source={StaticResource ProfileItems}}" />
-                        <MenuItem Header="Options..." Command="{Binding OptionsCommand}"/>
+                        <MenuItem Header="Options..." Command="{Binding OptionsCommand}" />
+                        <MenuItem Header="Exit" Command="{Binding ExitCommand}" />
                     </CompositeCollection>
                 </ContextMenu.ItemsSource>
                 <ContextMenu.ItemContainerStyle>
                     <Style TargetType="MenuItem">
-                        <Setter Property="Command" Value="{Binding ItemCommand}"/>
+                        <Setter Property="Command" Value="{Binding ItemCommand}" />
                     </Style>
                 </ContextMenu.ItemContainerStyle>
                 <ContextMenu.ItemTemplate>
                     <DataTemplate>
-                            <WrapPanel>
-                                <TextBlock Text="{Binding Name}"/>
-                            </WrapPanel>
+                        <WrapPanel>
+                            <TextBlock Text="{Binding Name}" />
+                        </WrapPanel>
                     </DataTemplate>
                 </ContextMenu.ItemTemplate>
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
-
     </tb:TaskbarIcon>
-
-
-
-</Window>  
+</Window>

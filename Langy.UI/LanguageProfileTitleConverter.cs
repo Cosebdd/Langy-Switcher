@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Data;
 using Langy.Core.Config;
-using Langy.Core.Model;
 
 namespace Langy.UI
 {

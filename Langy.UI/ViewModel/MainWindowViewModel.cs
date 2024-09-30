@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Langy.Core.Config;
 
@@ -17,12 +18,19 @@ namespace Langy.UI
             _itemsManager = new LanguageProfileItemsManager();
             CreateProfileMenuItems();
             OptionsCommand = ShowOptionsDialogCommand();
+            ExitCommand = ExitApplicationCommand();
             _openedOptionsDialog = null;
+        }
+
+        private ICommand ExitApplicationCommand()
+        {
+            return new BasicCommand(() => { Application.Current.Shutdown(); });
         }
 
         public ObservableCollection<ContextMenuItem> ProfileItems => _itemsManager.ProfileItems;
 
         public ICommand OptionsCommand { get; }
+        public ICommand ExitCommand { get; }
 
         private ICommand ShowOptionsDialogCommand()
         {
