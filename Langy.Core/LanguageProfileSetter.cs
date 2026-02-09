@@ -21,10 +21,12 @@ namespace Langy.Core
                 var langType = Type.GetType(AppConfig.CurrentConfig.InternalAppConfig.WinUserLanguageType);
                 IList langList = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(langType));
 
-                foreach (var tag in profile.LanguageTags)
+                foreach (var language in profile.Languages)
                 {
-                    var lang = Activator.CreateInstance(langType, tag);
-                    langList.Add(lang);
+                    dynamic resultLang = Activator.CreateInstance(langType, language.Tag);
+                    resultLang.InputMethodTips.Clear();
+                    resultLang.InputMethodTips.AddRange(language.InputMethods);
+                    langList.Add(resultLang);
                 }
 
                 psPipeline.Commands.Add(command);

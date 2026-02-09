@@ -10,10 +10,10 @@ namespace Langy.Core
     {
         internal static LanguageProfile InternalGetCurrentLanguageProfile(string name, out Type winUserLanguageType)
         {
-            RunspaceConfiguration psConfig = RunspaceConfiguration.Create();
+            var psConfig = RunspaceConfiguration.Create();
             var psRunspace = RunspaceFactory.CreateRunspace(psConfig);
             psRunspace.Open();
-            List<string> languageTags = new List<string>();
+            var languageTags = new List<Language>();
 
             using (Pipeline psPipeline = psRunspace.CreatePipeline())
             {
@@ -28,11 +28,15 @@ namespace Langy.Core
 
                 foreach (var mem in member)
                 {
-                    languageTags.Add(mem.LanguageTag);
+                    languageTags.Add(new Language()
+                    {
+                        Tag = mem.LanguageTag,
+                        InputMethods = mem.InputMethodTips.ToArray(),
+                    });
                 }
             }
 
-            var languageProfile = new LanguageProfile() { LanguageTags = languageTags, Name = name };
+            var languageProfile = new LanguageProfile() { Languages = languageTags, Name = name };
             return languageProfile;
         }
 

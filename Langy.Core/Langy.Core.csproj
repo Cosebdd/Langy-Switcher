@@ -52,6 +52,7 @@
     <Compile Include="LanguageProfileGetter.cs" />
     <Compile Include="LanguageProfileSetter.cs" />
     <Compile Include="Config\InternalAppConfig.cs" />
+    <Compile Include="Model\Language.cs" />
     <Compile Include="Model\LanguageProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

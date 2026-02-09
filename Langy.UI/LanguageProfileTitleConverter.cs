@@ -13,7 +13,7 @@ namespace Langy.UI
             if (!(value is string profileName))
                 return null;
             var profile = AppConfig.CurrentConfig.LanguageProfiles.Single(p => p.Name == profileName);
-            return $"{profile.Name} ({profile.LanguageTags.Aggregate((a, b) =>  a + "," + b)})";
+            return $"{profile.Name} ({profile.Languages.Select(l => l.Tag).Aggregate((a, b) =>  a + "," + b)})";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
