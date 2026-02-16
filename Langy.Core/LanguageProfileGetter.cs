@@ -17,7 +17,7 @@ namespace Langy.Core
 
             using (Pipeline psPipeline = psRunspace.CreatePipeline())
             {
-                Command command = new Command("Get-WinUserLanguageList");
+                var command = new Command("Get-WinUserLanguageList");
 
                 psPipeline.Commands.Add(command);
 
@@ -28,15 +28,13 @@ namespace Langy.Core
 
                 foreach (var mem in member)
                 {
-                    languageTags.Add(new Language()
-                    {
-                        Tag = mem.LanguageTag,
-                        InputMethods = mem.InputMethodTips.ToArray(),
-                    });
+                    languageTags.Add(
+                        new Language(mem.LanguageTag, mem.InputMethodTips.ToArray()
+                        ));
                 }
             }
 
-            var languageProfile = new LanguageProfile() { Languages = languageTags, Name = name };
+            var languageProfile = new LanguageProfile(name, languageTags);
             return languageProfile;
         }
 

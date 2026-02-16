@@ -11,11 +11,7 @@ namespace Langy.Core.Config
 
             var languageProfiles = new List<LanguageProfile> {langProfile};
 
-            return new InternalAppConfig()
-            {
-                LanguageProfiles = languageProfiles,
-                WinUserLanguageType = type.AssemblyQualifiedName
-            };
+            return new InternalAppConfig(languageProfiles, type.AssemblyQualifiedName);
         }
     }
 }

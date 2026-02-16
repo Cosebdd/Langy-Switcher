@@ -19,7 +19,6 @@ namespace Langy.Core.Config
 
         private AppConfig()
         {
-            InternalAppConfig = new InternalAppConfig();
             try
             {
                 var jsonConfig = File.ReadAllText(ConfigPath);

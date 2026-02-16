@@ -9,8 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Langy.Core</RootNamespace>
     <AssemblyName>Langy.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <LangVersion>10</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,9 +51,12 @@
   <ItemGroup>
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\BasicConfigCreator.cs" />
+    <Compile Include="Extension\EnumerableExtension.cs" />
+    <Compile Include="KeyboardLayoutEnumerator.cs" />
     <Compile Include="LanguageProfileGetter.cs" />
     <Compile Include="LanguageProfileSetter.cs" />
     <Compile Include="Config\InternalAppConfig.cs" />
+    <Compile Include="Model\KeyboardLayoutInfo.cs" />
     <Compile Include="Model\Language.cs" />
     <Compile Include="Model\LanguageProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
