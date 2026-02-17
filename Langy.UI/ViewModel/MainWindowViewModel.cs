@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Input;
 using Langy.Core.Config;
+using Langy.Core.Extension;
 
 namespace Langy.UI
 {
@@ -55,10 +56,8 @@ namespace Langy.UI
 
         private void CreateProfileMenuItems()
         {
-            foreach (var languageProfilesValue in _config.LanguageProfiles)
-            {
-                _itemsManager.CreateLangProfileContextMenuItem(languageProfilesValue);
-            }
+            _config.LanguageProfiles.Values
+                .ForEach(_itemsManager.CreateLangProfileContextMenuItem);
         }
     }
 }

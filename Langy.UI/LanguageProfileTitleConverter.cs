@@ -12,7 +12,7 @@ namespace Langy.UI
         {
             if (!(value is string profileName))
                 return null;
-            var profile = AppConfig.CurrentConfig.LanguageProfiles.Single(p => p.Name == profileName);
+            var profile = AppConfig.CurrentConfig.LanguageProfiles[profileName];
             return $"{profile.Name} ({string.Join(",",profile.Languages.Select(l => l.Tag))})";
         }
 

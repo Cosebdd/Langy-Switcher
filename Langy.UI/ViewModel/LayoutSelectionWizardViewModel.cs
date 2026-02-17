@@ -13,7 +13,8 @@ namespace Langy.UI.ViewModel
     internal class LayoutSelectionWizardViewModel : INotifyPropertyChanged
     {
         private readonly IReadOnlyCollection<ContextMenuItem> _existingProfiles;
-        private readonly IReadOnlyCollection<KeyboardLayoutInfo> _allLayouts;
+        private readonly IReadOnlyDictionary<string, KeyboardLayoutInfo> _allLayouts;
+        private readonly string _editedProfileName = string.Empty;
         private string _profileName = string.Empty;
         private string _searchText = string.Empty;
         private bool _canSave;
@@ -25,11 +26,26 @@ namespace Langy.UI.ViewModel
             _existingProfiles = existingProfiles;
             _allLayouts = KeyboardLayoutEnumerator.AvailableLayouts;
 
-            AvailableLayouts = new ObservableCollection<KeyboardLayoutInfo>(_allLayouts);
+            AvailableLayouts = new ObservableCollection<KeyboardLayoutInfo>(_allLayouts.Values);
             SelectedLayouts = new ObservableCollection<KeyboardLayoutInfo>();
 
             AddSelectedLayoutsCommand = new BasicCommand(AddSelectedLayout, () => _selectedAvailableLayout != null);
             RemoveSelectedLayoutsCommand = new BasicCommand(RemoveSelectedLayout, () => _selectedChosenLayout != null);
+        }
+
+        public LayoutSelectionWizardViewModel(IReadOnlyCollection<ContextMenuItem> existingProfiles, LanguageProfile profile)
+            : this(existingProfiles)
+        {
+            _profileName = profile.Name;
+            _editedProfileName = profile.Name;
+
+            profile
+                .Languages
+                .SelectMany(l => l.InputMethods)
+                .Select(l => _allLayouts[l])
+                .ForEach(MoveLayoutToSelected);
+
+            UpdateCanSave();
         }
 
         public string ProfileName
@@ -99,6 +115,11 @@ namespace Langy.UI.ViewModel
             if (_selectedAvailableLayout == null) return;
 
             var layout = _selectedAvailableLayout;
+            MoveLayoutToSelected(layout);
+        }
+
+        private void MoveLayoutToSelected(KeyboardLayoutInfo layout)
+        {
             AvailableLayouts.Remove(layout);
             SelectedLayouts.Add(layout);
             UpdateCanSave();
@@ -118,11 +139,11 @@ namespace Langy.UI.ViewModel
         private void FilterAvailableLayouts()
         {
             AvailableLayouts.Clear();
-            var selectedKlids = new HashSet<string>(SelectedLayouts.Select(l => l.Klid));
 
-            AvailableLayouts
-                .AddRange(_allLayouts
-                    .Where(layout => !selectedKlids.Contains(layout.Klid) && MatchesFilter(layout)));
+            AvailableLayouts.AddRange(
+                _allLayouts.Values
+                .Except(SelectedLayouts)
+                .Where(MatchesFilter));
         }
 
         private bool MatchesFilter(KeyboardLayoutInfo layout)
@@ -136,9 +157,19 @@ namespace Langy.UI.ViewModel
 
         private void UpdateCanSave()
         {
-            CanSave = !string.IsNullOrWhiteSpace(_profileName) &&
-                      !_existingProfiles.Any(p => p.Name.Equals(_profileName)) &&
-                      SelectedLayouts.Count > 0;
+            CanSave = GetCanSave();
+        }
+
+        private bool GetCanSave()
+        {
+            return !string.IsNullOrWhiteSpace(_profileName) && ProfileNameIsUnique() && SelectedLayouts.Count > 0;
+
+            bool ProfileNameIsUnique()
+            {
+                return _existingProfiles
+                    .Where(p => p.Name != _editedProfileName)
+                    .All(p => !p.Name.Equals(_profileName));
+            }
         }
 
         public LanguageProfile BuildProfile()

@@ -25,7 +25,7 @@
         </ListView>
         <StackPanel Grid.Column="1" Margin="5">
             <Button Margin="5" Command="{Binding CreateNewProfileCommand}">Create...</Button>
-            <Button Margin="5" Command="{Binding RenameProfileCommand}">Rename...</Button>
+            <Button Margin="5" Command="{Binding EditProfileCommand}">Edit...</Button>
             <Button Margin="5" Command="{Binding RemoveProfileCommand}">Remove</Button>
         </StackPanel>
     </Grid>

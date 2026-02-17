@@ -20,7 +20,7 @@ namespace Langy.UI
             _optionsDialog = optionsDialog;
 
             CreateNewProfileCommand = CreateNewProfile();
-            RenameProfileCommand = RenameProfile();
+            EditProfileCommand = EditProfile();
             RemoveProfileCommand = RemoveProfile();
         }
 
@@ -30,7 +30,7 @@ namespace Langy.UI
             set
             {
                 _selectedItem = value;
-                RenameProfileCommand.RaiseCanExecuteChanged();
+                EditProfileCommand.RaiseCanExecuteChanged();
                 RemoveProfileCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged();
             }
@@ -40,7 +40,7 @@ namespace Langy.UI
 
         public ICommand CreateNewProfileCommand { get; }
 
-        public BasicCommand RenameProfileCommand { get; }
+        public BasicCommand EditProfileCommand { get; }
 
         public BasicCommand RemoveProfileCommand { get; }
 
@@ -74,30 +74,27 @@ namespace Langy.UI
             );
         }
 
-        private BasicCommand RenameProfile()
+        private BasicCommand EditProfile()
         {
             return new BasicCommand(() =>
             {
-                if (!TryGetProfileNameFromDialog(SelectedItem.Name, "Rename profile", out var profileName)) return;
+                var oldName = SelectedItem.Name;
+                var existingProfile = AppConfig.CurrentConfig.LanguageProfiles[oldName];
 
-                AppConfig.CurrentConfig.RenameProfile(SelectedItem.Name, profileName);
-                SelectedItem.Name = profileName;
+                var vm = new LayoutSelectionWizardViewModel(ProfileItems, existingProfile);
+                var wizard = new LayoutSelectionWizard
+                {
+                    DataContext = vm,
+                    Owner = _optionsDialog,
+                    Title = "Edit Profile"
+                };
+                if (wizard.ShowDialog() != true) return;
+
+                var updatedProfile = vm.BuildProfile();
+                AppConfig.CurrentConfig.UpdateProfile(oldName, updatedProfile);
+                _itemsManager.UpdateLangProfileContextMenuItem(SelectedItem, updatedProfile);
             },
             () => SelectedItem != null);
-        }
-
-        private bool TryGetProfileNameFromDialog(string defaultText, string dialogTitle, out string profileName)
-        {
-            var viewModel = new ProfileNameDialogViewModel(ProfileItems) { ProfileName = defaultText,  };
-            var dialog = new ProfileNameDialog
-            {
-                DataContext = viewModel,
-                Owner = _optionsDialog,
-                Title = dialogTitle
-            };
-            var result = dialog.ShowDialog();
-            profileName = viewModel.ProfileName;
-            return result ?? false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

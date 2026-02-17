@@ -27,6 +27,12 @@ namespace Langy.UI
             ProfileItems.Add(item);
         }
 
+        public void UpdateLangProfileContextMenuItem(ContextMenuItem item, LanguageProfile profile)
+        {
+            item.Name = profile.Name;
+            item.ItemCommand = SetProfileCommand(profile);
+        }
+
         private static ICommand SetProfileCommand(LanguageProfile languageProfile)
         {
             return new BasicCommand(() =>

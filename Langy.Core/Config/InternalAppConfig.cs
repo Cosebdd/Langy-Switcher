@@ -5,13 +5,13 @@ namespace Langy.Core.Config
 {
     internal class InternalAppConfig
     {
-        public InternalAppConfig(List<LanguageProfile> languageProfiles, string winUserLanguageType)
+        public InternalAppConfig(IDictionary<string, LanguageProfile> languageProfiles, string winUserLanguageType)
         {
             LanguageProfiles = languageProfiles;
             WinUserLanguageType = winUserLanguageType;
         }
 
-        public List <LanguageProfile> LanguageProfiles { get; set; }
+        public IDictionary<string, LanguageProfile> LanguageProfiles { get; set; }
         public string WinUserLanguageType { get; set; }
     }
 }

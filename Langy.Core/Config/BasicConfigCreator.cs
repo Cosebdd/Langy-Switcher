@@ -9,7 +9,7 @@ namespace Langy.Core.Config
         {
             var langProfile = LanguageProfileGetter.InternalGetCurrentLanguageProfile(name, out var type);
 
-            var languageProfiles = new List<LanguageProfile> {langProfile};
+            var languageProfiles = new Dictionary<string, LanguageProfile>(){{langProfile.Name, langProfile}};
 
             return new InternalAppConfig(languageProfiles, type.AssemblyQualifiedName);
         }

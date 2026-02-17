@@ -10,23 +10,21 @@ namespace Langy.Core
 {
     public static class KeyboardLayoutEnumerator
     {
-        private static readonly Lazy<List<KeyboardLayoutInfo>> AllLayouts = new Lazy<List<KeyboardLayoutInfo>>(GetAvailableLayouts);
+        private static readonly Lazy<IReadOnlyDictionary<string, KeyboardLayoutInfo>> AllLayouts = new Lazy<IReadOnlyDictionary<string, KeyboardLayoutInfo>>(GetAvailableLayouts);
 
-        public static IReadOnlyCollection<KeyboardLayoutInfo> AvailableLayouts => AllLayouts.Value;
+        public static IReadOnlyDictionary<string, KeyboardLayoutInfo> AvailableLayouts => AllLayouts.Value;
 
-        private static List<KeyboardLayoutInfo> GetAvailableLayouts()
+        private static IReadOnlyDictionary<string, KeyboardLayoutInfo> GetAvailableLayouts()
         {
-            var layouts = new List<KeyboardLayoutInfo>();
-
             using var key = Registry.LocalMachine
                 .OpenSubKey(@"SYSTEM\CurrentControlSet\Control\Keyboard Layouts");
-            if (key == null) return layouts;
-            
+            if (key == null) throw new Exception("No Keyboard Layouts found in the registry.");
+
             return key.GetSubKeyNames()
                 .Select(klid => GetLayoutInfo(klid, key))
                 .WhereNotNull()
                 .OrderBy(l => l.DisplayName)
-                .ToList();
+                .ToDictionary(k => k.InputMethodTip);
         }
 
         private static KeyboardLayoutInfo? GetLayoutInfo(string klid, RegistryKey key)
