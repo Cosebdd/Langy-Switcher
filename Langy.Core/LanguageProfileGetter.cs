@@ -11,27 +11,25 @@ namespace Langy.Core
         internal static LanguageProfile InternalGetCurrentLanguageProfile(string name, out Type winUserLanguageType)
         {
             var psConfig = RunspaceConfiguration.Create();
-            var psRunspace = RunspaceFactory.CreateRunspace(psConfig);
+            using var psRunspace = RunspaceFactory.CreateRunspace(psConfig);
             psRunspace.Open();
+            using var psPipeline = psRunspace.CreatePipeline();
             var languageTags = new List<Language>();
 
-            using (Pipeline psPipeline = psRunspace.CreatePipeline())
+            var command = new Command("Get-WinUserLanguageList");
+
+            psPipeline.Commands.Add(command);
+
+            var results = psPipeline.Invoke();
+            dynamic member = results.First().BaseObject;
+
+            winUserLanguageType = member[0].GetType();
+
+            foreach (var mem in member)
             {
-                var command = new Command("Get-WinUserLanguageList");
-
-                psPipeline.Commands.Add(command);
-
-                var results = psPipeline.Invoke();
-                dynamic member = results.First().BaseObject;
-
-                winUserLanguageType = member[0].GetType();
-
-                foreach (var mem in member)
-                {
-                    languageTags.Add(
-                        new Language(mem.LanguageTag, mem.InputMethodTips.ToArray()
-                        ));
-                }
+                languageTags.Add(
+                    new Language(mem.LanguageTag, mem.InputMethodTips.ToArray()
+                    ));
             }
 
             var languageProfile = new LanguageProfile(name, languageTags);
@@ -40,7 +38,7 @@ namespace Langy.Core
 
         public static LanguageProfile GetCurrentLanguageProfile(string name)
         {
-            return InternalGetCurrentLanguageProfile(name, out var _ );
+            return InternalGetCurrentLanguageProfile(name, out var _);
         }
     }
 }

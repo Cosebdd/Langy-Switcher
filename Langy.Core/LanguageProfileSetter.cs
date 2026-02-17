@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Management.Automation.Runspaces;
 using Langy.Core.Config;
 using Langy.Core.Model;
@@ -11,29 +12,36 @@ namespace Langy.Core
     {
         public static void SetProfile(LanguageProfile profile)
         {
-            RunspaceConfiguration psConfig = RunspaceConfiguration.Create();
-            var psRunspace = RunspaceFactory.CreateRunspace(psConfig);
+            var psConfig = RunspaceConfiguration.Create();
+            using var psRunspace = RunspaceFactory.CreateRunspace(psConfig);
             psRunspace.Open();
+            using var psPipeline = psRunspace.CreatePipeline();
 
-            using (Pipeline psPipeline = psRunspace.CreatePipeline())
+            var command = new Command("Set-WinUserLanguageList");
+
+            var langList = GetLanguageList(profile);
+
+            psPipeline.Commands.Add(command);
+            command.Parameters.Add("LanguageList", langList);
+            command.Parameters.Add("Force", true);
+
+            psPipeline.Invoke();
+        }
+
+        private static IList GetLanguageList(LanguageProfile profile)
+        {
+            var langType = Type.GetType(AppConfig.CurrentConfig.InternalAppConfig.WinUserLanguageType);
+
+            return langType == null 
+                ? throw new ArgumentNullException(AppConfig.CurrentConfig.InternalAppConfig.WinUserLanguageType) 
+                : profile.Languages.Select(CreateLanguage).ToList();
+
+            dynamic CreateLanguage(Language language)
             {
-                Command command = new Command("Set-WinUserLanguageList");
-                var langType = Type.GetType(AppConfig.CurrentConfig.InternalAppConfig.WinUserLanguageType);
-                IList langList = (IList) Activator.CreateInstance(typeof(List<>).MakeGenericType(langType));
-
-                foreach (var language in profile.Languages)
-                {
-                    dynamic resultLang = Activator.CreateInstance(langType, language.Tag);
-                    resultLang.InputMethodTips.Clear();
-                    resultLang.InputMethodTips.AddRange(language.InputMethods);
-                    langList.Add(resultLang);
-                }
-
-                psPipeline.Commands.Add(command);
-                command.Parameters.Add("LanguageList", langList);
-                command.Parameters.Add("Force", true);
-
-                psPipeline.Invoke();
+                dynamic resultLang = Activator.CreateInstance(langType, language.Tag);
+                resultLang.InputMethodTips.Clear();
+                resultLang.InputMethodTips.AddRange(language.InputMethods);
+                return resultLang;
             }
         }
     }

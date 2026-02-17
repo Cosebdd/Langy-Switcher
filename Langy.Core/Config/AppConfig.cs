@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Langy.Core.Model;
@@ -27,10 +28,12 @@ namespace Langy.Core.Config
                 if (InternalAppConfig.LanguageProfiles == null 
                     || InternalAppConfig.LanguageProfiles.Count == 0 
                     || Type.GetType(InternalAppConfig.WinUserLanguageType) == null)
-                    throw new Exception();
+                    throw new Exception("Invalid config file");
             }
-            catch
+            catch(Exception e)
             {
+                Debug.WriteLine(e.Message);
+                Debug.WriteLine("Recreating basic config file");
                 var basicConfig = BasicConfigCreator.CreateBasicConfig("Main Profile");
                 InternalAppConfig = basicConfig;
                 SaveConfig();
@@ -48,7 +51,13 @@ namespace Langy.Core.Config
 
         public void RemoveProfile(string profileName)
         {
-            var profile = InternalAppConfig.LanguageProfiles.Single(p => p.Name == profileName);
+            var profile = InternalAppConfig.LanguageProfiles.SingleOrDefault(p => p.Name == profileName);
+            if (profile == null)
+            {
+                Debug.WriteLine($"Profile {profileName} not found and can't be removed");
+                return;
+            }
+
             InternalAppConfig.LanguageProfiles.Remove(profile);
             SaveConfig();
         }

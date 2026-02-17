@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Langy.Core.Extension;
@@ -9,7 +10,11 @@ namespace Langy.Core
 {
     public static class KeyboardLayoutEnumerator
     {
-        public static List<KeyboardLayoutInfo> GetAvailableLayouts()
+        private static readonly Lazy<List<KeyboardLayoutInfo>> AllLayouts = new Lazy<List<KeyboardLayoutInfo>>(GetAvailableLayouts);
+
+        public static IReadOnlyCollection<KeyboardLayoutInfo> AvailableLayouts => AllLayouts.Value;
+
+        private static List<KeyboardLayoutInfo> GetAvailableLayouts()
         {
             var layouts = new List<KeyboardLayoutInfo>();
 

@@ -2,9 +2,9 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using Langy.Core;
 using Langy.Core.Config;
 using Langy.UI.Annotations;
+using Langy.UI.ViewModel;
 
 namespace Langy.UI
 {
@@ -48,9 +48,16 @@ namespace Langy.UI
         {
             return new BasicCommand(() =>
             {
-                if (!TryGetProfileNameFromDialog("New profile", "Create new profile", out var profileName)) return;
+                var vm = new LayoutSelectionWizardViewModel(ProfileItems);
+                var wizard = new LayoutSelectionWizard
+                {
+                    DataContext = vm,
+                    Owner = _optionsDialog,
+                    Title = "Create New Profile"
+                };
+                if (wizard.ShowDialog() != true) return;
 
-                var profile = LanguageProfileGetter.GetCurrentLanguageProfile(profileName);
+                var profile = vm.BuildProfile();
                 _itemsManager.CreateLangProfileContextMenuItem(profile);
                 AppConfig.CurrentConfig.AddProfile(profile);
             });

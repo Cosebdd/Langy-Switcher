@@ -59,6 +59,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="LayoutSelectionWizard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -86,6 +90,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="LayoutSelectionWizard.xaml.cs">
+      <DependentUpon>LayoutSelectionWizard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\LayoutSelectionWizardViewModel.cs"/>
     <Compile Include="ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Options.xaml.cs">
       <DependentUpon>Options.xaml</DependentUpon>

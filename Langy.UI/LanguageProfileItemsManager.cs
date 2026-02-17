@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Langy.Core;
@@ -31,7 +33,14 @@ namespace Langy.UI
                 {
                     var task = new Task(() =>
                     {
-                        LanguageProfileSetter.SetProfile(languageProfile);
+                        try
+                        {
+                            LanguageProfileSetter.SetProfile(languageProfile);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine(e);
+                        }
                     });
                     task.Start();
                 }
