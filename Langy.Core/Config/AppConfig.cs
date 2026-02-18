@@ -22,14 +22,15 @@ namespace Langy.Core.Config
             try
             {
                 var jsonConfig = File.ReadAllText(ConfigPath);
-                InternalAppConfig = JsonConvert.DeserializeObject<InternalAppConfig>(jsonConfig);
-                
-                if (InternalAppConfig.LanguageProfiles == null 
-                    || InternalAppConfig.LanguageProfiles.Count == 0 
+                InternalAppConfig = JsonConvert.DeserializeObject<InternalAppConfig>(jsonConfig) ??
+                                    throw new Exception("Unable to deserialize config file.");
+
+                if (InternalAppConfig.LanguageProfiles == null
+                    || InternalAppConfig.LanguageProfiles.Count == 0
                     || Type.GetType(InternalAppConfig.WinUserLanguageType) == null)
                     throw new Exception("Invalid config file");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
                 Debug.WriteLine("Recreating basic config file");
