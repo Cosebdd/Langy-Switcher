@@ -10,8 +10,7 @@ namespace Langy.Core
     {
         internal static LanguageProfile InternalGetCurrentLanguageProfile(string name, out Type winUserLanguageType)
         {
-            var psConfig = RunspaceConfiguration.Create();
-            using var psRunspace = RunspaceFactory.CreateRunspace(psConfig);
+            using var psRunspace = RunspaceFactory.CreateRunspace();
             psRunspace.Open();
             using var psPipeline = psRunspace.CreatePipeline();
             var languageTags = new List<Language>();

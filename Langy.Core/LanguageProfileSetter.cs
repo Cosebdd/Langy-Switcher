@@ -12,8 +12,7 @@ namespace Langy.Core
     {
         public static void SetProfile(LanguageProfile profile)
         {
-            var psConfig = RunspaceConfiguration.Create();
-            using var psRunspace = RunspaceFactory.CreateRunspace(psConfig);
+            using var psRunspace = RunspaceFactory.CreateRunspace();
             psRunspace.Open();
             using var psPipeline = psRunspace.CreatePipeline();
 
