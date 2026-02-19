@@ -3,32 +3,23 @@ using System.Windows.Input;
 
 namespace Langy.UI
 {
-    public class BasicCommand : ICommand
+    public class BasicCommand(Action action, Func<bool>? canExecute = null) : ICommand
     {
-        private readonly Action _action;
-        private readonly Func<bool> _canExecute;
-
-        public BasicCommand(Action action, Func<bool> canExecute = null)
+        public bool CanExecute(object? parameter)
         {
-            _action = action;
-            _canExecute = canExecute;
-        }
-
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute();
+            return canExecute == null || canExecute();
         }
 
         public void RaiseCanExecuteChanged()
         {
-            CanExecuteChanged?.Invoke(this, new EventArgs());
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
 
-        public void Execute(object parameter)
+        public void Execute(object? parameter)
         {
-            _action();
+            action();
         }
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
     }
 }

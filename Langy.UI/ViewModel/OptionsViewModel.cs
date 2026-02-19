@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
+using Langy.Core;
 using Langy.Core.Config;
 using Langy.UI.Annotations;
 using Langy.UI.ViewModel;
@@ -12,7 +13,7 @@ namespace Langy.UI
     {
         private readonly Options _optionsDialog;
         private readonly LanguageProfileItemsManager _itemsManager;
-        private ContextMenuItem _selectedItem;
+        private ContextMenuItem? _selectedItem;
 
         public OptionsViewModel(LanguageProfileItemsManager itemsManager, Options optionsDialog)
         {
@@ -24,7 +25,7 @@ namespace Langy.UI
             RemoveProfileCommand = RemoveProfile();
         }
 
-        public ContextMenuItem SelectedItem
+        public ContextMenuItem? SelectedItem
         {
             get => _selectedItem;
             set
@@ -67,6 +68,7 @@ namespace Langy.UI
         {
             return new BasicCommand(() =>
             {
+                VerifyThat.IsNotNull(SelectedItem?.Name);
                 AppConfig.CurrentConfig.RemoveProfile(SelectedItem.Name);
                 _itemsManager.ProfileItems.Remove(SelectedItem);
             }, 
@@ -78,6 +80,7 @@ namespace Langy.UI
         {
             return new BasicCommand(() =>
             {
+                VerifyThat.IsNotNull(SelectedItem?.Name);
                 var oldName = SelectedItem.Name;
                 var existingProfile = AppConfig.CurrentConfig.LanguageProfiles[oldName];
 
@@ -97,10 +100,10 @@ namespace Langy.UI
             () => SelectedItem != null);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

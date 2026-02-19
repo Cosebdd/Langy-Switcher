@@ -37,7 +37,8 @@ namespace Langy.Core
 
             dynamic CreateLanguage(Language language)
             {
-                dynamic resultLang = Activator.CreateInstance(langType, language.Tag);
+                dynamic resultLang = Activator.CreateInstance(langType, language.Tag) 
+                                     ?? throw new Exception($"Failed to create an instance of {langType}");
                 resultLang.InputMethodTips.Clear();
                 resultLang.InputMethodTips.AddRange(language.InputMethods);
                 return resultLang;

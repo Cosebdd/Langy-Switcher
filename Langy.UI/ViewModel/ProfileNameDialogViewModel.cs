@@ -3,13 +3,14 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Langy.Core.Extension;
 using Langy.UI.Annotations;
 
 namespace Langy.UI
 {
     public class ProfileNameDialogViewModel : INotifyPropertyChanged
     {
-        private string _profileName;
+        private string? _profileName;
         private bool _nameIsValid;
         private readonly IReadOnlyCollection<ContextMenuItem> _profileItems;
 
@@ -18,13 +19,16 @@ namespace Langy.UI
             _profileItems = profileItems;
         }
 
-        public string ProfileName
+        public string? ProfileName
         {
             get => _profileName;
             set
             {
                 _profileName = value;
-                NameIsValid = !_profileItems.Any(i => i.Name.Equals(_profileName)) && !string.IsNullOrWhiteSpace(_profileName);
+                NameIsValid = !_profileItems
+                    .Select(p => p.Name)
+                    .WhereNotNull()
+                    .Any(name => name.Equals(_profileName)) && !string.IsNullOrWhiteSpace(_profileName);
                 OnPropertyChanged();
             }
         }
@@ -39,10 +43,10 @@ namespace Langy.UI
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

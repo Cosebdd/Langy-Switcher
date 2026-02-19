@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.Versioning;
 using Langy.Core.Extension;
 using Langy.Core.Model;
 using Microsoft.Win32;
 
 namespace Langy.Core
 {
+    [SupportedOSPlatform("windows")]
     public static class KeyboardLayoutEnumerator
     {
         private static readonly Lazy<IReadOnlyDictionary<string, KeyboardLayoutInfo>> AllLayouts = new Lazy<IReadOnlyDictionary<string, KeyboardLayoutInfo>>(GetAvailableLayouts);

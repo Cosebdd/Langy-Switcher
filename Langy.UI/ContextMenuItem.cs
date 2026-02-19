@@ -4,11 +4,11 @@ using System.Windows.Input;
 
 namespace Langy.UI
 {
-    public class ContextMenuItem : INotifyPropertyChanged
+    public sealed class ContextMenuItem : INotifyPropertyChanged
     {
-        private string _name;
+        private string? _name;
 
-        public string Name
+        public string? Name
         {
             get => _name;
             set
@@ -18,11 +18,11 @@ namespace Langy.UI
             }
         }
 
-        public ICommand ItemCommand { get; set; }
+        public ICommand? ItemCommand { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

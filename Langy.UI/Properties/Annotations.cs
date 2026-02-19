@@ -191,7 +191,7 @@ namespace Langy.UI.Annotations
       ParameterName = parameterName;
     }
 
-    [CanBeNull] public string ParameterName { get; private set; }
+    public string? ParameterName { get; private set; }
   }
 
   /// <summary>
@@ -423,7 +423,7 @@ namespace Langy.UI.Annotations
       Comment = comment;
     }
 
-    [CanBeNull] public string Comment { get; private set; }
+    public string? Comment { get; private set; }
   }
 
   /// <summary>
@@ -461,7 +461,7 @@ namespace Langy.UI.Annotations
       Justification = justification;
     }
 
-    [CanBeNull] public string Justification { get; private set; }
+    public string? Justification { get; private set; }
   }
 
   /// <summary>
@@ -498,7 +498,7 @@ namespace Langy.UI.Annotations
       BasePath = basePath;
     }
 
-    [CanBeNull] public string BasePath { get; private set; }
+    public string? BasePath { get; private set; }
   }
 
   /// <summary>
@@ -562,7 +562,7 @@ namespace Langy.UI.Annotations
     /// Allows specifying a macro that will be executed for a <see cref="SourceTemplateAttribute">source template</see>
     /// parameter when the template is expanded.
     /// </summary>
-    [CanBeNull] public string Expression { get; set; }
+    public string? Expression { get; set; }
 
     /// <summary>
     /// Allows specifying which occurrence of the target parameter becomes editable when the template is deployed.
@@ -578,7 +578,7 @@ namespace Langy.UI.Annotations
     /// Identifies the target parameter of a <see cref="SourceTemplateAttribute">source template</see> if the
     /// <see cref="MacroAttribute"/> is applied on a template method.
     /// </summary>
-    [CanBeNull] public string Target { get; set; }
+    public string? Target { get; set; }
   }
 
   [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
@@ -663,7 +663,7 @@ namespace Langy.UI.Annotations
       AnonymousProperty = anonymousProperty;
     }
 
-    [CanBeNull] public string AnonymousProperty { get; private set; }
+    public string? AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -681,7 +681,7 @@ namespace Langy.UI.Annotations
       AnonymousProperty = anonymousProperty;
     }
 
-    [CanBeNull] public string AnonymousProperty { get; private set; }
+    public string? AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -700,7 +700,7 @@ namespace Langy.UI.Annotations
       AnonymousProperty = anonymousProperty;
     }
 
-    [CanBeNull] public string AnonymousProperty { get; private set; }
+    public string? AnonymousProperty { get; private set; }
   }
 
   /// <summary>
@@ -803,7 +803,7 @@ namespace Langy.UI.Annotations
       Name = name;
     }
 
-    [CanBeNull] public string Name { get; private set; }
+    public string? Name { get; private set; }
   }
 
   [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
@@ -1045,7 +1045,7 @@ namespace Langy.UI.Annotations
       }
 
       [NotNull] public string BaseType { get; private set; }
-      [CanBeNull] public string PageName { get; private set; }
+      public string? PageName { get; private set; }
   }
     
   [AttributeUsage(AttributeTargets.Method)]

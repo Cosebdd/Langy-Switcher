@@ -8,11 +8,11 @@ namespace Langy.UI
 {
     public class MainWindowViewModel
     {
-        private object lockObject = new object();
+        private readonly Lock _lockObject = new Lock();
 
         private readonly AppConfig _config = AppConfig.CurrentConfig;
         private readonly LanguageProfileItemsManager _itemsManager;
-        private Options _openedOptionsDialog;
+        private Options? _openedOptionsDialog;
 
         public MainWindowViewModel()
         {
@@ -37,7 +37,7 @@ namespace Langy.UI
         {
             return new BasicCommand(() =>
             {
-                lock (lockObject)
+                lock (_lockObject)
                 {
                     if (_openedOptionsDialog == null)
                     {

@@ -10,7 +10,7 @@ using Langy.UI.Annotations;
 
 namespace Langy.UI.ViewModel
 {
-    internal class LayoutSelectionWizardViewModel : INotifyPropertyChanged
+    internal sealed class LayoutSelectionWizardViewModel : INotifyPropertyChanged
     {
         private readonly IReadOnlyCollection<ContextMenuItem> _existingProfiles;
         private readonly IReadOnlyDictionary<string, KeyboardLayoutInfo> _allLayouts;
@@ -18,8 +18,8 @@ namespace Langy.UI.ViewModel
         private string _profileName = string.Empty;
         private string _searchText = string.Empty;
         private bool _canSave;
-        private KeyboardLayoutInfo _selectedAvailableLayout;
-        private KeyboardLayoutInfo _selectedChosenLayout;
+        private KeyboardLayoutInfo? _selectedAvailableLayout;
+        private KeyboardLayoutInfo? _selectedChosenLayout;
 
         public LayoutSelectionWizardViewModel(IReadOnlyCollection<ContextMenuItem> existingProfiles)
         {
@@ -74,7 +74,7 @@ namespace Langy.UI.ViewModel
 
         public ObservableCollection<KeyboardLayoutInfo> SelectedLayouts { get; }
 
-        public KeyboardLayoutInfo SelectedAvailableLayout
+        public KeyboardLayoutInfo? SelectedAvailableLayout
         {
             get => _selectedAvailableLayout;
             set
@@ -85,7 +85,7 @@ namespace Langy.UI.ViewModel
             }
         }
 
-        public KeyboardLayoutInfo SelectedChosenLayout
+        public KeyboardLayoutInfo? SelectedChosenLayout
         {
             get => _selectedChosenLayout;
             set
@@ -168,7 +168,9 @@ namespace Langy.UI.ViewModel
             {
                 return _existingProfiles
                     .Where(p => p.Name != _editedProfileName)
-                    .All(p => !p.Name.Equals(_profileName));
+                    .Select(p => p.Name)
+                    .WhereNotNull()
+                    .All(name => !name.Equals(_profileName));
             }
         }
 
@@ -185,10 +187,10 @@ namespace Langy.UI.ViewModel
             return new LanguageProfile(ProfileName, languages.ToList());
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

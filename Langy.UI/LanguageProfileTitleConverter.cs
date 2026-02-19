@@ -8,7 +8,7 @@ namespace Langy.UI
 {
     public class LanguageProfileTitleConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             if (!(value is string profileName))
                 return null;
@@ -16,7 +16,7 @@ namespace Langy.UI
             return $"{profile.Name} ({string.Join(",",profile.Languages.Select(l => l.Tag))})";
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
