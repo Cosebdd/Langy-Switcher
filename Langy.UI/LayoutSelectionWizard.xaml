@@ -7,7 +7,9 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        Title="Create New Profile" Height="500" Width="800">
+        Title="Create New Profile" Height="500" Width="800"       
+        Icon="Logo.ico"
+        Style="{StaticResource DefaultStyle}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -34,6 +36,7 @@
                          Text="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 <ListView ItemsSource="{Binding AvailableLayouts}"
                           SelectedItem="{Binding SelectedAvailableLayout}"
+                          ItemContainerStyle="{StaticResource GridViewItemStyle}"
                           MouseDoubleClick="AvailableLayouts_MouseDoubleClick">
                     <ListView.View>
                         <GridView>
@@ -47,9 +50,9 @@
             </DockPanel>
 
             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0">
-                <Button Content="Add &gt;&gt;" Margin="0,5" Padding="10,5"
+                <Button Content="Add &gt;&gt;" Margin="0,5"
                         Command="{Binding AddSelectedLayoutsCommand}"/>
-                <Button Content="&lt;&lt; Remove" Margin="0,5" Padding="10,5"
+                <Button Content="&lt;&lt; Remove" Margin="0,5"
                         Command="{Binding RemoveSelectedLayoutsCommand}"/>
             </StackPanel>
 
@@ -57,6 +60,7 @@
                 <Label DockPanel.Dock="Top" Content="Selected Layouts"/>
                 <ListView ItemsSource="{Binding SelectedLayouts}"
                           SelectedItem="{Binding SelectedChosenLayout}"
+                          ItemContainerStyle="{StaticResource GridViewItemStyle}"
                           MouseDoubleClick="SelectedLayouts_MouseDoubleClick">
                     <ListView.View>
                         <GridView>

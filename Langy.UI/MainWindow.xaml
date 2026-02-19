@@ -8,6 +8,7 @@
     xmlns:viewModel="clr-namespace:Langy.UI.ViewModel"
     mc:Ignorable="d"
     d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}"
+    Style="{StaticResource DefaultStyle}"
     Visibility="Hidden">
 
     <Window.Resources>
@@ -21,7 +22,7 @@
                     MenuActivation="LeftOrRightClick"
                     PopupActivation="DoubleClick">
         <tb:TaskbarIcon.ContextMenu>
-            <ContextMenu Background="White">
+            <ContextMenu>
                 <ContextMenu.ItemsSource>
                     <CompositeCollection>
                         <CollectionContainer Collection="{Binding Source={StaticResource ProfileItems}}" />
@@ -30,7 +31,7 @@
                     </CompositeCollection>
                 </ContextMenu.ItemsSource>
                 <ContextMenu.ItemContainerStyle>
-                    <Style TargetType="MenuItem">
+                    <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
                         <Setter Property="Command" Value="{Binding ItemCommand}" />
                     </Style>
                 </ContextMenu.ItemContainerStyle>

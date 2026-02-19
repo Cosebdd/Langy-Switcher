@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
-        Title="Options" Height="300" Width="400">
+        Title="Options" Height="300" Width="400"
+        Icon="Logo.ico"
+        Style="{StaticResource DefaultStyle}">
     <Window.Resources>
         <local:LanguageProfileTitleConverter x:Key="ValueConverter" />
     </Window.Resources>
