@@ -1,12 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Langy.Core.Extension;
-using Langy.UI.Annotations;
+using Langy.UI.Properties;
 
-namespace Langy.UI
+namespace Langy.UI.ViewModel
 {
     public class ProfileNameDialogViewModel : INotifyPropertyChanged
     {

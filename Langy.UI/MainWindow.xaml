@@ -5,8 +5,9 @@
     xmlns:tb="http://www.hardcodet.net/taskbar" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="clr-namespace:Langy.UI"
+    xmlns:viewModel="clr-namespace:Langy.UI.ViewModel"
     mc:Ignorable="d"
-    d:DataContext="{d:DesignInstance ui:MainWindowViewModel}"
+    d:DataContext="{d:DesignInstance viewModel:MainWindowViewModel}"
     Visibility="Hidden">
 
     <Window.Resources>

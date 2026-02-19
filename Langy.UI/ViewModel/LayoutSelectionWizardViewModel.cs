@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 using Langy.Core;
 using Langy.Core.Extension;
 using Langy.Core.Model;
-using Langy.UI.Annotations;
+using Langy.UI.Properties;
 
 namespace Langy.UI.ViewModel
 {

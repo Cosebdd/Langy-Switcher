@@ -4,10 +4,9 @@ using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Langy.Core;
 using Langy.Core.Config;
-using Langy.UI.Annotations;
-using Langy.UI.ViewModel;
+using Langy.UI.Properties;
 
-namespace Langy.UI
+namespace Langy.UI.ViewModel
 {
     internal class OptionsViewModel : INotifyPropertyChanged
     {

@@ -4,7 +4,7 @@ using System.Windows.Input;
 using Langy.Core.Config;
 using Langy.Core.Extension;
 
-namespace Langy.UI
+namespace Langy.UI.ViewModel
 {
     public class MainWindowViewModel
     {
