@@ -27,7 +27,7 @@ namespace Langy.Core.Config
 
                 if (InternalAppConfig.LanguageProfiles == null
                     || InternalAppConfig.LanguageProfiles.Count == 0
-                    || Type.GetType(InternalAppConfig.WinUserLanguageType) == null)
+                    || string.IsNullOrEmpty(InternalAppConfig.WinUserLanguageType))
                     throw new Exception("Invalid config file");
             }
             catch (Exception e)
