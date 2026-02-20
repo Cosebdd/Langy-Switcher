@@ -6,43 +6,58 @@
     <Color x:Key="Overlay">#f2e9e1</Color>
     <Color x:Key="Surface">#fffaf3</Color>
     <Color x:Key="Subtle">#797593</Color>
-    <Color x:Key="HighlightMed">#dfdad9</Color>
-    <Color x:Key="HighlightHigh">#cecacd</Color>
-    <Color x:Key="Pine">#286983</Color>
+    <Color x:Key="SubtleBorder">#D3CED1</Color>
+    <Color x:Key="SubtleHover">#F3EDE8</Color>
+    <Color x:Key="SubtleSelected">#EFE9E4</Color>
+    <Color x:Key="SubtleSubSelected">#E5E0DE</Color>
+    <Color x:Key="SubtleFoam">#93AFB7</Color>
     <Color x:Key="Text">#575279</Color>
     <Color x:Key="Muted">#9893a5</Color>
     <Color x:Key="Love">#b4637a</Color>
     <Color x:Key="RoseLight">#d6827f</Color>
     <Color x:Key="RoseLightSelected">#c37776</Color>
     <Color x:Key="Rose">#d7827e</Color>
-    <Color x:Key="RoseLighter">#f2d2d1</Color>
+    <Color x:Key="RoseLighter">#DA8D8A</Color>
     
     <Color x:Key="Dark">#333231</Color>
 
-    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource Overlay}"/>
-    <SolidColorBrush x:Key="UiTitleBrush" Color="{StaticResource Text}"/>
-    <SolidColorBrush x:Key="TitleBarInactiveBackgroundBrush" Color="{StaticResource Surface}"/>
-    <SolidColorBrush x:Key="WindowBorder" Color="{StaticResource Dark}"/>
-    <SolidColorBrush x:Key="SelectedItemBrush" Color="{StaticResource RoseLightSelected}"/>
-    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource Surface}"/>
-    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource Overlay}"/>
-    <SolidColorBrush x:Key="ButtonBrush" Color="{StaticResource RoseLighter}"/>
-    <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource Pine}"/>
-    <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource Rose}"/>
+    <SolidColorBrush x:Key="WindowBorder" Color="{StaticResource Surface}"/>
+    
+    <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="{StaticResource Base}"/>
+    <SolidColorBrush x:Key="UiTitleBrush" Color="{StaticResource Subtle}"/>
+    <SolidColorBrush x:Key="TitleBarInactiveBackgroundBrush" Color="{StaticResource Base}"/>
+
+    <SolidColorBrush x:Key="BackgroundBrush" Color="{StaticResource Base}"/>
+
+    <SolidColorBrush x:Key="InputBackgroundBrush" Color="{StaticResource Base}"/>
+
+    <SolidColorBrush x:Key="SelectedItemBrush" Color="{StaticResource SubtleSelected}"/>
+    <SolidColorBrush x:Key="SelectedTextItemBorderBrush" Color="{StaticResource SubtleBorder}"/>
+    <SolidColorBrush x:Key="SelectedTextBrush" Color="{StaticResource Text}"/>
+
+    <SolidColorBrush x:Key="ButtonBrush" Color="{StaticResource RoseLight}"/>
+    <SolidColorBrush x:Key="ButtonTextBrush" Color="{StaticResource Base}"/>
+    <SolidColorBrush x:Key="ButtonHoverBrush" Color="{StaticResource RoseLighter}"/>
+    <SolidColorBrush x:Key="ButtonHoverTextBrush" Color="{StaticResource Base}"/>
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource RoseLight}"/>
+    
+    <SolidColorBrush x:Key="HoverBrush" Color="{StaticResource SubtleHover}"/>
+    <SolidColorBrush x:Key="HoverTextBrush" Color="{StaticResource Text}"/>
     <SolidColorBrush x:Key="TextBrush" Color="{StaticResource Text}"/>
-    <SolidColorBrush x:Key="ListViewHeader" Color="{StaticResource RoseLight}"/>
-    <SolidColorBrush x:Key="ListViewScrollBackground" Color="{StaticResource RoseLighter}"/>
-    <SolidColorBrush x:Key="ListViewScrollThumb" Color="{StaticResource Rose}"/>
-    <SolidColorBrush x:Key="ListViewScrollThumbHover" Color="{StaticResource Love}"/>
-    <SolidColorBrush x:Key="ListViewScrollThumbDrag" Color="{StaticResource Love}"/>
-    <SolidColorBrush x:Key="ListViewHeaderBorder" Color="{StaticResource Pine}"/>
-    <SolidColorBrush x:Key="InputBorder" Color="{StaticResource Pine}"/>
-    <SolidColorBrush x:Key="ContextMenuBorder" Color="{StaticResource Pine}"/>
+
+    <SolidColorBrush x:Key="ListViewHeader" Color="{StaticResource Dark}"/>
+    <SolidColorBrush x:Key="ListViewHeaderBorder" Color="{StaticResource Dark}"/>
+    
+    <SolidColorBrush x:Key="ListViewScrollBackground" Color="{StaticResource Base}"/>
+    <SolidColorBrush x:Key="ListViewScrollThumb" Color="{StaticResource SubtleSelected}"/>
+    <SolidColorBrush x:Key="ListViewScrollThumbHover" Color="{StaticResource SubtleSubSelected}"/>
+    <SolidColorBrush x:Key="ListViewScrollThumbDrag" Color="{StaticResource SubtleFoam}"/>
+
+    <SolidColorBrush x:Key="InputBorder" Color="{StaticResource SubtleBorder}"/>
+    <SolidColorBrush x:Key="ContextMenuBorder" Color="{StaticResource SubtleBorder}"/>
     <SolidColorBrush x:Key="DisabledTextBrush" Color="{StaticResource Muted}"/>
     <SolidColorBrush x:Key="UiTextBrush" Color="{StaticResource Subtle}"/>
 
-    <SolidColorBrush x:Key="HoverTextBrush" Color="{StaticResource Dark}"/>
-    <SolidColorBrush x:Key="SelectedTextBrush" Color="{StaticResource RosePineBase}"/>
     <Style TargetType="TextBox">
         <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}"/>
         <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
@@ -181,6 +196,8 @@
                 <ControlTemplate TargetType="ListViewItem">
                     <Border x:Name="Bd"
                             Background="{TemplateBinding Background}"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
                             Padding="4,2">
                         <ContentPresenter/>
                     </Border>
@@ -191,6 +208,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource SelectedItemBrush}"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource SelectedTextItemBorderBrush}"/>
                             <Setter Property="Foreground" Value="{StaticResource SelectedTextBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -206,6 +224,8 @@
                 <ControlTemplate TargetType="ListViewItem">
                     <Border x:Name="Bd"
                             Background="{TemplateBinding Background}"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
                             Padding="{TemplateBinding Padding}">
                         <GridViewRowPresenter/>
                     </Border>
@@ -216,6 +236,7 @@
                         </Trigger>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource SelectedItemBrush}"/>
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource SelectedTextItemBorderBrush}"/>
                             <Setter Property="Foreground" Value="{StaticResource SelectedTextBrush}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -228,7 +249,7 @@
     </Style>
     <Style TargetType="Button">
         <Setter Property="Background" Value="{StaticResource ButtonBrush}"/>
-        <Setter Property="Foreground" Value="{StaticResource UiTextBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource ButtonTextBrush}"/>
         <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="10,5"/>
@@ -248,8 +269,8 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{StaticResource HoverBrush}"/>
-                <Setter Property="Foreground" Value="{StaticResource HoverTextBrush}"/>
+                <Setter Property="Background" Value="{StaticResource ButtonHoverBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource ButtonHoverTextBrush}"/>
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}"/>
