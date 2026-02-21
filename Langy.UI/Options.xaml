@@ -8,7 +8,7 @@
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         Title="Options" Height="300" Width="400"
-        Icon="Logo.ico"
+        Icon="Icon24.ico"
         Style="{StaticResource DefaultStyle}">
     <Window.Resources>
         <local:LanguageProfileTitleConverter x:Key="ValueConverter" />

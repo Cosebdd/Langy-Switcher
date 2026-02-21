@@ -8,7 +8,7 @@
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
         Title="Create New Profile" Height="500" Width="800"       
-        Icon="Logo.ico"
+        Icon="Icon24.ico"
         Style="{StaticResource DefaultStyle}">
     <Grid Margin="10">
         <Grid.RowDefinitions>
