@@ -1,1 +1,1 @@
-# Langy Switcher
+﻿# SwitchyLingus
